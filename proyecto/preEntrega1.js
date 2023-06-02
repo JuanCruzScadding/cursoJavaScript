@@ -105,7 +105,7 @@ function menuPrincipal() {
 
 const PARTIDA = menuPrincipal()
 
-                                  //LLAMO AL MENU DENTRO DE UN CONDICIONAL
+                                  //LLAMO AL MENU DENTRO DE UN CONDICIONAL PARA QUE EL USUARIO PUEDA ELEGIR PARTIDA
 if(PARTIDA === 1){
   jugarRonda15()
 }else 
