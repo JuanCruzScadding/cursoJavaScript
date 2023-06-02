@@ -1,30 +1,32 @@
-// Función para jugar una ronda por turnos
+// Función para jugar una partida a 15 puntos
 function jugarRonda15() {
+                                                    //DECLARO VARIABLES LOCALES
   let puntajeNosotros = 0
   let puntajeEllos = 0
   let turno = 1
-
+  alert("EMPIEZA JUEGO A 15 PUNTOS")
+                                                    //
   while (puntajeNosotros < 15 && puntajeEllos < 15) {
-    const puntajeTurno = parseInt(prompt(`Equipo ${turno}, ingresa los puntos que sumaron en este turno:`))
+    const puntajeTurno = parseInt(prompt(`Equipo ${turno}, cuantos puntos sumaste este turno?:`))
 
     if (isNaN(puntajeTurno)) {
-      console.log('Ingresa un valor numérico válido.')
+      alert("Ingresa un valor numérico válido.")
       continue
     }
 
     if (turno === 1) {
-      puntajeNosotros += puntajeTurno
+      puntajeNosotros = puntajeNosotros + puntajeTurno
     } else {
       puntajeEllos += puntajeTurno
     }
 
-    console.log(`Puntaje del Equipo 1: ${puntajeNosotros}`)
-    console.log(`Puntaje del Equipo 2: ${puntajeEllos}`)
+    alert(`Puntaje del Equipo 1: ${puntajeNosotros}`)
+    alert(`Puntaje del Equipo 2: ${puntajeEllos}`)
 
     if (puntajeNosotros >= 15 || puntajeEllos >= 15) {
       break
     }
-
+                                                    //ESTE CONDICIONAL ALTERNA LOS TURNOS
     if (turno === 1) {
       turno = 2;
     } else {
@@ -33,24 +35,24 @@ function jugarRonda15() {
       }
 
   if (puntajeNosotros >= 15) {
-    console.log("USTEDES GANAN")
+    alert("USTEDES GANAN (equipo 1)")
   } else {
-    console.log("ELLOS GANAN")
+    alert("ELLOS GANAN (equipo 2)")
   }
 }
 
-// Llamada a la función para jugar una ronda
 function jugarRonda30() {
   let puntajeNosotros = 0
   let puntajeEllos = 0
   let turno = 1
 
+  alert("EMPIEZA JUEGO A 30 PUNTOS")
 
   while (puntajeNosotros < 30 && puntajeEllos < 30) {
     const puntajeTurno = parseInt(prompt(`Equipo ${turno}, ingresa los puntos que sumaron en este turno:`))
 
     if (isNaN(puntajeTurno)) {
-      console.log('Ingresa un valor numérico válido.')
+      alert('Ingresa un valor numérico válido.')
       continue
     }
 
@@ -60,8 +62,8 @@ function jugarRonda30() {
       puntajeEllos += puntajeTurno
     }
 
-    console.log(`Puntaje del Equipo 1: ${puntajeNosotros}`)
-    console.log(`Puntaje del Equipo 2: ${puntajeEllos}`)
+    alert(`Puntaje del Equipo 1: ${puntajeNosotros}`)
+    alert(`Puntaje del Equipo 2: ${puntajeEllos}`)
 
     if (puntajeNosotros >= 30 || puntajeEllos >= 30) {
       break
@@ -75,27 +77,29 @@ function jugarRonda30() {
       }
 
   if (puntajeNosotros >= 30 && puntajeEllos >= 30) {
-    console.log('¡Empate! Ambos equipos han alcanzado los 30 puntos.')
+    alert('¡Empate! Ambos equipos han alcanzado los 30 puntos.')
   } else if (puntajeNosotros >= 30) {
-    console.log('¡Ustedes han ganado la ronda con 30 puntos!')
+    alert('¡Ustedes han ganado la ronda con 30 puntos!')
   } else {
-    console.log('¡Ellos han ganado la ronda con 30 puntos!')
+    alert('¡Ellos han ganado la ronda con 30 puntos!')
   }
 }
-function menu(partida) {
+function menuPrincipal() {
   let menu = parseInt(prompt("ELIJA UN MODO DE JUEGO\n1 : PARTIDA A 15 PUNTOS\n2 : PARTIDA A 30 PUNTOS\n0 : PARA SALIR"))
-  partida = menu
-  if(isNaN(menu)){
-    alert("Elija una opcion valida")
+  if((menu === 1) || (menu === 2)|| (menu === 0)){
+    return menu
+  }else{
+    alert("INGRESA UNA OPCION VALIDA")
+    menuPrincipal()
   }
-  return partida
 }
-if (menu("partida") === 1) {
+const PARTIDA = menuPrincipal()
+if(PARTIDA === 1){
   jugarRonda15()
-}else
-  if(menu("partida") === 2){
-    jugarRonda30()
-  }
-  else
-    if(menu("partida") === 0){
-    }
+}else 
+    if(PARTIDA === 2){
+      jugarRonda30()
+    }else
+        if(PARTIDA === 0){
+          alert("GRACIAS VUELVA PRONTOS")
+        }
