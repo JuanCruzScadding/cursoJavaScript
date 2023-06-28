@@ -1,15 +1,52 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
-    <title>CONTADOR DE TRUCO</title>
-    <link rel="shortcut icon" href="img/logo.jpeg" type="image/x-icon">
+  <title>Búsqueda de Películas</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<h1>CONTADOR DE TRUCO</h1>
-<script src="proyecto/preEntrega1.js"></script>
+  <h1>Búsqueda de Películas</h1>
+
+  <div>
+    <label for="opcion-menu">Seleccione una opción:</label>
+    <select id="opcion-menu">
+      <option value="1">Buscar por título</option>
+      <option value="2">Buscar por año</option>
+      <option value="3">Buscar por género</option>
+    </select>
+  </div>
+
+  <div id="opcion-titulo" style="display: none;">
+    <label for="titulo-busqueda">Ingrese el título de una película:</label>
+    <input type="text" id="titulo-busqueda">
+    <button id="buscar-titulo">Buscar</button>
+  </div>
+
+  <div id="opcion-anio" style="display: none;">
+    <label for="anio-busqueda">Ingrese el año de una película:</label>
+    <input type="text" id="anio-busqueda">
+    <button id="buscar-anio">Buscar</button>
+  </div>
+
+  <div id="opcion-genero" style="display: none;">
+    <label for="genero-busqueda">Ingrese el género de una película:</label>
+    <input type="text" id="genero-busqueda">
+    <button id="buscar-genero">Buscar</button>
+  </div>
+  
+
+  <div id="resultado"></div>
+
+  <div id="carrito">
+    <h2>Carrito de Compras</h2>
+    <ul id="lista-peliculas"></ul>
+    <button id="vaciar-carrito">Vaciar Carrito</button>
+    <button id="finalizar-compra">Finalizar Compra</button>
+    <button id="amigo1">Enviar a Amigo 1</button>
+    <button id="amigo2">Enviar a Amigo 2</button>
+    <button id="amigo3">Enviar a Amigo 3</button>
+  </div>
+
+  <script src="proyecto/preEntrega3.js"></script>
 </body>
 </html>
