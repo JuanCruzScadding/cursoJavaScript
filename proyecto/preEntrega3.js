@@ -106,17 +106,36 @@ function mostrarLista() {
   lista.innerHTML = ''
 
   if (peliculasEnLista.length === 0) {
-    const listaVacia = document.createElement('li')
-    listaVacia.textContent = 'La lista está vacía.'
-    lista.appendChild(listaVacia)
+    const mensaje = document.createElement('li')
+    mensaje.textContent = 'La lista está vacía.'
+    lista.appendChild(mensaje)
   } else {
     peliculasEnLista.forEach(pelicula => {
       const peliculaElement = document.createElement('li')
-      peliculaElement.textContent = pelicula.titulo
+
+      const titulo = document.createElement('span')
+      titulo.textContent = pelicula.titulo
+
+      const eliminarBtn = document.createElement('button')
+      eliminarBtn.textContent = 'Eliminar'
+      eliminarBtn.addEventListener('click', () => eliminarPeliculaDeLista(pelicula))
+
+      peliculaElement.appendChild(titulo)
+      peliculaElement.appendChild(eliminarBtn)
       lista.appendChild(peliculaElement)
     })
   }
 }
+//FUNCION PARA ELIMINAR DE LA LISTA
+function eliminarPeliculaDeLista(pelicula) {
+  const index = peliculasEnLista.findIndex(item => item.titulo === pelicula.titulo);
+  if (index !== -1) {
+    peliculasEnLista.splice(index, 1);
+    mostrarLista();
+    alert(`La película "${pelicula.titulo}" ha sido eliminada de la lista.`);
+  }
+}
+
 
 // Event listeners para los botones de envío a amigos
 amigo1Btn.addEventListener('click', () => enviarLista('Amigo 1'))
