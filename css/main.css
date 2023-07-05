@@ -1,39 +1,4 @@
-.card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .card img {
-    width: 150px;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  #resultado {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  #lista-amigos {
-    margin-top: 20px;
-  }
-  
-  #lista-peliculas {
-    margin-bottom: 10px;
-  }
-  
-  #enviar-lista {
-    margin-bottom: 10px;
-  }
-  #carrito {
-    margin-top: 200px;
-  }
-  
-  
+body{
+    background-color: #000;
+    color: #fff;
+}
