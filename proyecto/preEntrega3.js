@@ -1,9 +1,24 @@
 const peliculas = [
-  { titulo: 'The Shawshank Redemption', genero: 'Drama', anio: 1994},
-  { titulo: 'El Padrino', genero: 'Crimen', anio: 1972 },
-  { titulo: 'Pulp Fiction', genero: 'Crimen', anio: 1994 },
-  { titulo: 'El Caballero Oscuro', genero: 'Acción', anio: 2008 },
-  { titulo: 'El club de la pelea', genero: 'Drama', anio: 1999 },
+  { titulo: "El padrino", genero: "Drama", anio: 1972 },
+  { titulo: "Pulp Fiction", genero: "Crimen", anio: 1994 },
+  { titulo: "El señor de los anillos: La comunidad del anillo", genero: "Fantasia", anio: 2001 },
+  { titulo: "Matrix", genero: "Ciencia ficción", anio: 1999 },
+  { titulo: "El gran Lebowski", genero: "Comedia", anio: 1998 },
+  { titulo: "Forrest Gump", genero: "Drama", anio: 1994 },
+  { titulo: "La vida es bella", genero: "Comedia", anio: 1997 },
+  { titulo: "Titanic", genero: "Drama", anio: 1997 },  
+  { titulo: "El rey león", genero: "Animación", anio: 1994 },
+  { titulo: "Reservoir Dogs", genero: "Crimen", anio: 1992 },
+  { titulo: "El caballero de la noche", genero: "Acción", anio: 2008 },
+  { titulo: "Blade Runner", genero: "Ciencia ficción", anio: 1982 },
+  { titulo: "Volver al futuro", genero: "Ciencia ficción", anio: 1985 },
+  { titulo: "Jurassic Park", genero: "Aventura", anio: 1993 },
+  { titulo: "La lista de Schindler", genero: "Drama", anio: 1993 },
+  { titulo: "Eterno resplandor de una mente sin recuerdos", genero: "Drama", anio: 2004 },
+  { titulo: "El sexto sentido", genero: "Drama", anio: 1999 },
+  { titulo: "El club de la pelea", genero: "Drama", anio: 1999 },
+  { titulo: "Star Wars: Episodio IV - Una nueva esperanza", genero: "Ciencia ficción", anio: 1977 },
+  { titulo: "El resplandor", genero: "Terror", anio: 1980 }
 ]
 
 // Selección de elementos del DOM
@@ -26,34 +41,53 @@ opcionMenu.addEventListener('change', mostrarOpcion)
 //EVENTO PARA MOSTRAR TODO
 document.addEventListener('DOMContentLoaded', function () {
   mostrarPeliculasDisponibles()
-});
+})
 //FUNCION PARA MOSTRAR TODO
 function mostrarPeliculasDisponibles() {
-  const peliculasDisponiblesContainer = document.getElementById('peliculasDisponibles');
-  peliculasDisponiblesContainer.innerHTML = '';
+  const peliculasDisponiblesContainer = document.getElementById('peliculasDisponibles')
+  peliculasDisponiblesContainer.innerHTML = ''
 
   if (peliculas.length === 0) {
-    const mensaje = document.createElement('p');
-    mensaje.textContent = 'No hay películas disponibles.';
-    peliculasDisponiblesContainer.appendChild(mensaje);
+    const mensaje = document.createElement('p')
+    mensaje.textContent = 'No hay películas disponibles.'
+    peliculasDisponiblesContainer.appendChild(mensaje)
   } else {
-    peliculas.forEach(pelicula => {
-      const peliculaElement = document.createElement('div');
-      peliculaElement.className = 'pelicula-card';
+    const filtro = document.getElementById('filtro').value.toLowerCase()
+    const peliculasFiltradas = peliculas.filter(pelicula =>
+      pelicula.titulo.toLowerCase().includes(filtro)
+    )
 
-      const titulo = document.createElement('h3');
-      titulo.textContent = pelicula.titulo;
+    if (peliculasFiltradas.length === 0) {
+      const mensaje = document.createElement('p')
+      mensaje.textContent = 'No se encontraron películas.'
+      peliculasDisponiblesContainer.appendChild(mensaje)
+    } else {
+      peliculasFiltradas.forEach(pelicula => {
+        const peliculaElement = document.createElement('div')
+        peliculaElement.className = 'pelicula-card'
 
-      const imagen = document.createElement('img');
-      imagen.src = pelicula.imagen;
-      imagen.alt = pelicula.titulo;
+        const titulo = document.createElement('h3')
+        titulo.textContent = pelicula.titulo
 
-      peliculaElement.appendChild(imagen);
-      peliculaElement.appendChild(titulo);
-      peliculasDisponiblesContainer.appendChild(peliculaElement);
-    });
+        const imagen = document.createElement('img')
+        imagen.src = pelicula.imagen
+        imagen.alt = pelicula.titulo
+
+        const agregarBtn = document.createElement('button')
+        agregarBtn.textContent = 'Agregar'
+        agregarBtn.addEventListener('click', function() {
+          agregarPeliculaALista(pelicula)
+        })
+
+        peliculaElement.appendChild(imagen)
+        peliculaElement.appendChild(titulo)
+        peliculaElement.appendChild(agregarBtn)
+        peliculasDisponiblesContainer.appendChild(peliculaElement)
+      })
+    }
   }
 }
+
 // Función para mostrar la opción seleccionada en el menú
 function mostrarOpcion() {
   const opcionSeleccionada = opcionMenu.value
@@ -122,11 +156,11 @@ function mostrarResultados(peliculas) {
 // Función para agregar una película a la lista
 function agregarLista(pelicula) {
   if (peliculasEnLista.includes(pelicula)) {
-    mostrarMensaje(`La película "${pelicula.titulo}" ya está en la lista.`);
+    mostrarMensaje(`La película "${pelicula.titulo}" ya está en la lista.`)
   } else {
-    peliculasEnLista.push(pelicula);
-    mostrarMensaje(`La película "${pelicula.titulo}" ha sido añadida a la lista.`);
-    mostrarLista();
+    peliculasEnLista.push(pelicula)
+    mostrarMensaje(`La película "${pelicula.titulo}" ha sido añadida a la lista.`)
+    mostrarLista()
   }
 }
 
@@ -134,37 +168,37 @@ function agregarLista(pelicula) {
 
 // Función para mostrar el contenido de la lista
 function mostrarLista() {
-  const lista = document.getElementById('lista');
-  lista.innerHTML = '';
+  const lista = document.getElementById('lista')
+  lista.innerHTML = ''
 
   if (peliculasEnLista.length === 0) {
-    const mensaje = document.createElement('li');
-    mensaje.textContent = 'La lista está vacía.';
-    lista.appendChild(mensaje);
+    const mensaje = document.createElement('li')
+    mensaje.textContent = 'La lista está vacía.'
+    lista.appendChild(mensaje)
   } else {
     peliculasEnLista.forEach(pelicula => {
-      const peliculaElement = document.createElement('li');
+      const peliculaElement = document.createElement('li')
 
-      const titulo = document.createElement('span');
-      titulo.textContent = pelicula.titulo;
+      const titulo = document.createElement('span')
+      titulo.textContent = pelicula.titulo
 
-      const eliminarBtn = document.createElement('button');
-      eliminarBtn.textContent = 'Eliminar';
-      eliminarBtn.addEventListener('click', () => eliminarPeliculaDeLista(pelicula));
+      const eliminarBtn = document.createElement('button')
+      eliminarBtn.textContent = 'Eliminar'
+      eliminarBtn.addEventListener('click', () => eliminarPeliculaDeLista(pelicula))
 
-      peliculaElement.appendChild(titulo);
-      peliculaElement.appendChild(eliminarBtn);
-      lista.appendChild(peliculaElement);
-    });
+      peliculaElement.appendChild(titulo)
+      peliculaElement.appendChild(eliminarBtn)
+      lista.appendChild(peliculaElement)
+    })
   }
 }
 //FUNCION PARA ELIMINAR DE LA LISTA
 function eliminarPeliculaDeLista(pelicula) {
-  const index = peliculasEnLista.findIndex(item => item.titulo === pelicula.titulo);
+  const index = peliculasEnLista.findIndex(item => item.titulo === pelicula.titulo)
   if (index !== -1) {
-    peliculasEnLista.splice(index, 1);
-    mostrarMensaje(`La película "${pelicula.titulo}" ha sido eliminada de la lista.`);
-    mostrarLista();
+    peliculasEnLista.splice(index, 1)
+    mostrarMensaje(`La película "${pelicula.titulo}" ha sido eliminada de la lista.`)
+    mostrarLista()
   }
 }
 
@@ -174,39 +208,43 @@ amigo1Btn.addEventListener('click', () => enviarLista('Amigo 1'))
 
 // Función para enviar la lista a un amigo
 function enviarLista() {
-  const peliculasEnviadas = peliculasEnLista.map(pelicula => pelicula.titulo);
+  const peliculasEnviadas = peliculasEnLista.map(pelicula => pelicula.titulo)
 
   if (peliculasEnviadas.length === 0) {
-    mostrarMensaje('La lista está vacía.');
-    return;
+    mostrarMensaje('La lista está vacía.')
+    return
   }
 
-  const formulario = document.createElement('form');
-  const inputAmigo = document.createElement('input');
-  inputAmigo.type = 'text';
-  inputAmigo.placeholder = 'Nombre del amigo';
-  const botonEnviar = document.createElement('button');
-  botonEnviar.textContent = 'Enviar';
+  const formulario = document.createElement('form')
+  const inputAmigo = document.createElement('input')
+  inputAmigo.type = 'text'
+  inputAmigo.placeholder = 'Nombre del amigo'
+  const botonEnviar = document.createElement('button')
+  botonEnviar.textContent = 'Enviar'
   botonEnviar.addEventListener('click', function(event) {
-    event.preventDefault();
-    const amigo = inputAmigo.value;
+    event.preventDefault()
+    const amigo = inputAmigo.value
     if (amigo) {
-      const mensaje = `Se ha enviado la lista a ${amigo} con las siguientes películas:\n${peliculasEnviadas.join('\n')}`;
-      mostrarMensaje(mensaje);
-      formulario.remove();
+      const mensaje = `Se ha enviado la lista a ${amigo} con las siguientes películas:\n${peliculasEnviadas.join('\n')}`
+      mostrarMensaje(mensaje)
+      formulario.remove()
     } else {
-      mostrarMensaje('Por favor, ingrese el nombre del amigo.');
+      mostrarMensaje('Por favor, ingrese el nombre del amigo.')
     }
-  });
+  })
 
-  formulario.appendChild(inputAmigo);
-  formulario.appendChild(botonEnviar);
-  document.getElementById('formulario').appendChild(formulario);
+  formulario.appendChild(inputAmigo)
+  formulario.appendChild(botonEnviar)
+  document.getElementById('formulario').appendChild(formulario)
 }
-
+function vaciarLista() {
+  peliculasEnLista = []
+  mostrarLista()
+  mostrarMensaje('La lista ha sido vaciada.')
+}
 function mostrarMensaje(mensaje) {
-  const mensajeElement = document.getElementById('mensaje');
-  mensajeElement.textContent = mensaje;
+  const mensajeElement = document.getElementById('mensaje')
+  mensajeElement.textContent = mensaje
 }
 // Event listeners para los botones de búsqueda
 document.getElementById('buscar-titulo').addEventListener('click', buscarPeliculasPorTitulo)
