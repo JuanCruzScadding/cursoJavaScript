@@ -20,7 +20,13 @@ const peliculas = [
   { titulo: "Star Wars: Episodio IV - Una nueva esperanza", genero: "Ciencia ficción", anio: 1977 },
   { titulo: "El resplandor", genero: "Terror", anio: 1980 }
 ]
-
+// Variable para almacenar las películas en la lista
+let peliculasEnLista = []
+// Función para mostrar u ocultar la lista de películas seleccionadas
+function toggleLista() {
+  const listaContainer = document.getElementById('lista');
+  listaContainer.classList.toggle('oculto');
+}
 // Selección de elementos del DOM
 const opcionMenu = document.getElementById('opcion-menu')
 const opcionTitulo = document.getElementById('opcion-titulo')
@@ -33,8 +39,7 @@ const resultado = document.getElementById('resultado')
 const lista = document.getElementById('lista')
 const amigo1Btn = document.getElementById('amigo1')
 
-// Variable para almacenar las películas en la lista
-let peliculasEnLista = []
+
 
 // Manejador de eventos para el cambio de opción en el menú
 opcionMenu.addEventListener('change', mostrarOpcion)
@@ -168,40 +173,71 @@ function agregarLista(pelicula) {
 
 // Función para mostrar el contenido de la lista
 function mostrarLista() {
-  const lista = document.getElementById('lista')
-  lista.innerHTML = ''
+  const listaContainer = document.getElementById('lista');
+  listaContainer.innerHTML = '';
 
   if (peliculasEnLista.length === 0) {
-    const mensaje = document.createElement('li')
-    mensaje.textContent = 'La lista está vacía.'
-    lista.appendChild(mensaje)
+    const mensaje = document.createElement('p');
+    mensaje.textContent = 'La lista está vacía.';
+    listaContainer.appendChild(mensaje);
   } else {
-    peliculasEnLista.forEach(pelicula => {
-      const peliculaElement = document.createElement('li')
+    peliculasEnLista.forEach((pelicula, index) => {
+      const peliculaElement = document.createElement('li');
+      peliculaElement.textContent = pelicula.titulo;
 
-      const titulo = document.createElement('span')
-      titulo.textContent = pelicula.titulo
+      const eliminarBtn = document.createElement('button');
+      eliminarBtn.textContent = 'Eliminar';
+      eliminarBtn.addEventListener('click', function() {
+        eliminarPeliculaDeLista(index);
+        mostrarLista(); // Llamada recursiva para volver a mostrar la lista actualizada
+      });
 
-      const eliminarBtn = document.createElement('button')
-      eliminarBtn.textContent = 'Eliminar'
-      eliminarBtn.addEventListener('click', () => eliminarPeliculaDeLista(pelicula))
-
-      peliculaElement.appendChild(titulo)
-      peliculaElement.appendChild(eliminarBtn)
-      lista.appendChild(peliculaElement)
-    })
+      peliculaElement.appendChild(eliminarBtn);
+      listaContainer.appendChild(peliculaElement);
+    });
   }
 }
+// Función para agregar una película a la lista
+function agregarPeliculaALista(pelicula) {
+  peliculasEnLista.push(pelicula);
+}
+
+// Función para cargar la lista de películas desde el almacenamiento local
+function cargarListaDesdeLocalStorage() {
+  const peliculasEnListaString = localStorage.getItem('peliculasEnLista');
+  if (peliculasEnListaString) {
+    peliculasEnLista = JSON.parse(peliculasEnListaString);
+  }
+}
+
+// Evento click en el botón "Ver Lista"
+const verListaBtn = document.getElementById('verLista');
+verListaBtn.addEventListener('click', function() {
+  mostrarLista();
+  const listaContainer = document.getElementById('lista');
+  listaContainer.classList.toggle('oculto');
+});
+
+// Cargar la lista desde el almacenamiento local al cargar la página
+cargarListaDesdeLocalStorage();
+
+
 //FUNCION PARA ELIMINAR DE LA LISTA
-function eliminarPeliculaDeLista(pelicula) {
-  const index = peliculasEnLista.findIndex(item => item.titulo === pelicula.titulo)
-  if (index !== -1) {
-    peliculasEnLista.splice(index, 1)
-    mostrarMensaje(`La película "${pelicula.titulo}" ha sido eliminada de la lista.`)
-    mostrarLista()
-  }
+// Función para eliminar una película de la lista
+function eliminarPeliculaDeLista(index) {
+  peliculasEnLista.splice(index, 1)
 }
 
+
+// Evento click en el botón "Agregar a Lista"
+const agregarBtns = document.querySelectorAll('.agregarBtn');
+agregarBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const peliculaIndex = this.dataset.index;
+    const pelicula = peliculas[peliculaIndex];
+    agregarPeliculaALista(pelicula);
+  });
+});
 
 // Event listeners para los botones de envío a amigos
 amigo1Btn.addEventListener('click', () => enviarLista('Amigo 1'))
