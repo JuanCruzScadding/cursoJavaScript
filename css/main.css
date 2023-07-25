@@ -1,5 +1,10 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 body{
-    background-color: rgb(7, 57, 98);
+  background-color: #222;
     color: #fff;
     font-family: sans-serif;
 }
@@ -166,3 +171,77 @@ main h1{
     border: 1px solid #ccc;
     max-width: 200px; /* Ajusta este valor según tus necesidades */
   }
+  nav {
+    background-color: #111;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+  }
+  
+  nav a:hover {
+    background-color: #fff;
+    color: #333;
+  }
+  .resultados-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .pelicula {
+    /* Estilos de cada película... */
+    margin-bottom: 20px;
+  }
+  .pelicula img{
+    width: 100%;
+    height: 100%;
+  }
+  
+  #carrito {
+    /* Estilos del carrito... */
+    margin-top: 20px;
+  }
+    /* Estilos para el panel lateral */
+.panel-lateral {
+  position: fixed;
+  top: 0;
+  right: -300px; /* El panel estará oculto al principio */
+  width: 300px;
+  height: 100%;
+  background-color: #f1f1f1;
+  padding: 20px;
+  transition: right 0.3s ease; /* Agregamos una transición suave al abrir y cerrar el panel */
+}
+
+/* Estilos para la lista de películas en el carrito */
+#carritoLista {
+  list-style: none;
+  padding: 0;
+}
+
+#carritoLista li {
+  margin-bottom: 10px;
+}

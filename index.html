@@ -9,6 +9,15 @@
   <title>buscador de peliculas</title>
 </head>
 <body>
+  <!--nav-->
+  <nav>
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Buscar Películas</a></li>
+      <li><button onclick="verListaCompleta()">Ver lista completa</button></li>
+    </ul>
+  </nav>
+  
 <!-- Input de búsqueda -->
 <label for="inputTitulo">Título:</label>
 <input type="text" id="inputTitulo">
@@ -24,7 +33,6 @@
 <!-- Carrito -->
 <div id="carrito">
   <h2>Carrito</h2>
-  <button onclick="verListaCompleta()">Ver lista completa</button>
   <button onclick="vaciarCarrito()">Vaciar carrito</button>
   <button onclick="enviarLista()">Enviar lista a un amigo</button>
   <div id="listaCarrito"></div>

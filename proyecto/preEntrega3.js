@@ -1,17 +1,17 @@
 // Array de objetos que representa cada película con título y género
 const peliculas = [
-  { titulo: "El padrino", genero: "Drama" },
-  { titulo: "Pulp Fiction", genero: "Crimen" },
-  { titulo: "El Señor de los Anillos: La Comunidad del Anillo", genero: "Aventura" },
-  { titulo: "El club de la lucha", genero: "Drama" },
-  { titulo: "Forrest Gump", genero: "Drama" },
-  { titulo: "Matrix", genero: "Ciencia ficción" },
-  { titulo: "Cadena perpetua", genero: "Drama" },
-  { titulo: "El caballero oscuro", genero: "Acción" },
-  { titulo: "La lista de Schindler", genero: "Drama" },
-  { titulo: "El Señor de los Anillos: El retorno del rey", genero: "Aventura" },
-  { titulo: "Gladiador", genero: "Acción" },
-  { titulo: "El resplandor", genero: "Terror" },
+  { titulo: "El padrino", genero: "Drama", imagen:"../img/elPadrino.jpg" },
+  { titulo: "Pulp Fiction", genero: "Crimen", imagen:"../img/pulpFiction.jpg"  },
+  { titulo: "El Señor de los Anillos: La Comunidad del Anillo", genero: "Aventura", imagen:"../img/lordOfRings.jpg" },
+  { titulo: "El club de la lucha", genero: "Drama", imagen:"../img/fightClub.jpg" },
+  { titulo: "Forrest Gump", genero: "Drama", imagen:"../img/forestGump.jpg" },
+  { titulo: "Matrix", genero: "Ciencia ficción", imagen:"../img/matrix.jpg" },
+  { titulo: "Openheimer", genero: "Drama", imagen:"../img/openheimer.webp" },
+  { titulo: "El caballero oscuro", genero: "Acción" , imagen:"../img/caballeroOscuro.jpg" },
+  { titulo: "La lista de Schindler", genero: "Drama", imagen:"../img/ista.jpg"},
+  { titulo: "Star wars episodio I : La amenaza fantasma", genero: "Ciencia Ficcion", imagen:"../img/starWars.jpg" },
+  { titulo: "Gladiador", genero: "Acción", imagen:"../img/gladiador.jpg" },
+  { titulo: "El diablo viste a la moda", genero: "Drama", imagen:"../img/devilPrada.jpg" },
   { titulo: "Interestelar", genero: "Ciencia ficción" },
   { titulo: "La naranja mecánica", genero: "Ciencia ficción" },
   { titulo: "Titanic", genero: "Drama" },
@@ -68,32 +68,39 @@ function obtenerResultadosSimulados() {
 
 // Función para mostrar los resultados de la búsqueda
 function mostrarResultados(peliculas) {
-  resultadosContainer.innerHTML = ""
+  resultadosContainer.innerHTML = "";
 
   if (peliculas.length === 0) {
-    resultadosContainer.innerHTML = "No se encontraron resultados."
+    resultadosContainer.innerHTML = "No se encontraron resultados.";
   } else {
     peliculas.forEach(pelicula => {
-      const peliculaElement = document.createElement("div")
-      peliculaElement.innerHTML =
-        "<strong>Título:</strong> " + pelicula.titulo + "<br>" +
-        "<strong>Género:</strong> " + pelicula.genero + "<br>" +
-        "<button onclick='agregarAlCarrito(\"" + pelicula.titulo + "\")'>Agregar al carrito</button>"
-      resultadosContainer.appendChild(peliculaElement)
-    })
+      const peliculaElement = document.createElement("div");
+      peliculaElement.classList.add("pelicula");
+
+      // Agregar imagen o miniatura de la película
+      peliculaElement.innerHTML = `
+        <img src="${pelicula.imagen}" alt="${pelicula.titulo}">
+        <strong>Título:</strong> ${pelicula.titulo}<br>
+        <strong>Género:</strong> ${pelicula.genero}<br>
+        <button onclick='agregarAlCarrito("${pelicula.titulo}")'>Agregar al carrito</button>
+      `;
+
+      resultadosContainer.appendChild(peliculaElement);
+    });
   }
 }
 
 // Función para agregar una película al carrito
 function agregarAlCarrito(titulo) {
   if (!carrito.includes(titulo)) {
-    carrito.push(titulo)
-    mostrarNotificacion("Película agregada al carrito.")
+    carrito.push(titulo);
+    mostrarNotificacion("Película agregada al carrito.");
   } else {
-    eliminarPelicula(titulo)
-    mostrarNotificacion("Película eliminada del carrito.")
+    eliminarPelicula(titulo);
+    mostrarNotificacion("Película eliminada del carrito.");
   }
 }
+
 
 // Función para eliminar una película del carrito
 function eliminarPelicula(titulo) {
@@ -140,23 +147,26 @@ function mostrarNotificacion(mensaje) {
   }, 2000)
 }
 // Función para enviar la lista de películas a un amigo
+// ...Resto del código...
+
+// Función para enviar la lista de películas a un amigo
 function enviarLista() {
   if (carrito.length === 0) {
-    mostrarNotificacion("El carrito está vacío, no se puede enviar la lista.")
-    return
+    mostrarNotificacion("El carrito está vacío, no se puede enviar la lista.");
+    return;
   }
 
-  const datosLista = JSON.stringify(carrito)
+  const datosLista = JSON.stringify(carrito);
 
   // Simulamos el envío de la lista con una notificación de Toastify
   Toastify({
-    text: "La lista ha sido enviada a tu amigo y el carrito se ha vaciado.",
-    duration: 2000,
+    text: `Lista enviada a tu amigo. Se incluyeron ${carrito.length} películas.`,
+    duration: 3000,
     close: true,
     gravity: "top",
     position: "right",
     backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-  }).showToast()
+  }).showToast();
 
-  vaciarCarrito()
+  vaciarCarrito();
 }
