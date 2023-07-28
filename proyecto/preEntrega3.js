@@ -12,161 +12,196 @@ const peliculas = [
   { titulo: "Star wars episodio I : La amenaza fantasma", genero: "Ciencia Ficcion", imagen:"../img/starWars.jpg" },
   { titulo: "Gladiador", genero: "Acción", imagen:"../img/gladiador.jpg" },
   { titulo: "El diablo viste a la moda", genero: "Drama", imagen:"../img/devilPrada.jpg" },
-  { titulo: "Interestelar", genero: "Ciencia ficción" },
-  { titulo: "La naranja mecánica", genero: "Ciencia ficción" },
-  { titulo: "Titanic", genero: "Drama" },
-  { titulo: "Inception (El origen)", genero: "Ciencia ficción" },
-  { titulo: "Jurassic Park", genero: "Aventura" },
-  { titulo: "El rey león", genero: "Animación" },
-  { titulo: "Volver al futuro", genero: "Ciencia ficción" },
-  { titulo: "Gladiator", genero: "Acción" },
+  { titulo: "Interestelar", genero: "Ciencia ficción", imagen:"../img/interestelar.jpg" },
+  { titulo: "La naranja mecánica", genero: "Ciencia ficción", imagen:"../img/naranja.webp" },
+  { titulo: "Titanic", genero: "Drama", imagen:"../img/titanic.jpg"},
+  { titulo: "Inception (El origen)", genero: "Ciencia ficción", imagen:"../img/inception.jpg" },
+  { titulo: "Jurassic Park", genero: "Aventura", imagen:"../img/park.jpg" },
+  { titulo: "Volver al futuro", genero: "Ciencia ficción", imagen:"../img/volver.webp" },
+  { titulo: "El rey león", genero: "Animación" , imagen:"../img/reyLeon.jpg"},
+  { titulo: "Gladiator", genero: "Acción", imagen:"../img/gladiador.jpg" },
 ]
-
-
 // Array para almacenar las películas agregadas al carrito
 let carrito = []
 
-// Obtenemos los elementos del DOM
-const inputTitulo = document.getElementById("inputTitulo")
-const inputGenero = document.getElementById("inputGenero")
-const resultadosContainer = document.getElementById("resultados")
-const listaCarrito = document.getElementById("listaCarrito")
-const contenedorNotificaciones = document.getElementById("contenedorNotificaciones")
-
-// Función para buscar películas por título o género
-function buscarPeliculas() {
-  const titulo = inputTitulo.value.trim().toLowerCase()
-  const genero = inputGenero.value.trim().toLowerCase()
-
-  // Simulamos una solicitud fetch para obtener los resultados
-  obtenerResultadosSimulados()
-    .then(peliculas => {
-      const resultados = peliculas.filter(pelicula => {
-        const tituloEnMinuscula = pelicula.titulo.toLowerCase()
-        const generoEnMinuscula = pelicula.genero.toLowerCase()
-  
-        return tituloEnMinuscula.includes(titulo) && generoEnMinuscula.includes(genero)
-      })
-  
-      mostrarResultados(resultados)
-    })
-    .catch(error => {
-      console.error("Error en la búsqueda:", error)
-      mostrarNotificacion("Error en la búsqueda de películas.")
-    })
-}
-// Función para simular la obtención de resultados con Fetch y Promesas
-function obtenerResultadosSimulados() {
-  return new Promise(resolve => {
-    // Simulamos una demora de medio segundo para obtener los resultados
-    setTimeout(() => {
-      resolve(peliculas)
-    }, 500)
-  })
-}
 
 
 // Función para mostrar los resultados de la búsqueda
 function mostrarResultados(peliculas) {
-  resultadosContainer.innerHTML = "";
+  const resultadosContainer = document.getElementById("resultados")
+  resultadosContainer.innerHTML = ""
 
   if (peliculas.length === 0) {
-    resultadosContainer.innerHTML = "No se encontraron resultados.";
+    resultadosContainer.innerHTML = "No se encontraron resultados."
   } else {
     peliculas.forEach(pelicula => {
-      const peliculaElement = document.createElement("div");
-      peliculaElement.classList.add("pelicula");
+      const peliculaElement = document.createElement("div")
+      peliculaElement.classList.add("pelicula")
 
-      // Agregar imagen o miniatura de la película
       peliculaElement.innerHTML = `
         <img src="${pelicula.imagen}" alt="${pelicula.titulo}">
         <strong>Título:</strong> ${pelicula.titulo}<br>
         <strong>Género:</strong> ${pelicula.genero}<br>
-        <button onclick='agregarAlCarrito("${pelicula.titulo}")'>Agregar al carrito</button>
-      `;
+        <button onclick="agregarAlCarrito('${pelicula.titulo}', '${pelicula.genero}')">Agregar al carrito</button>
+      `
 
-      resultadosContainer.appendChild(peliculaElement);
-    });
-  }
-}
-
-// Función para agregar una película al carrito
-function agregarAlCarrito(titulo) {
-  if (!carrito.includes(titulo)) {
-    carrito.push(titulo);
-    mostrarNotificacion("Película agregada al carrito.");
-  } else {
-    eliminarPelicula(titulo);
-    mostrarNotificacion("Película eliminada del carrito.");
-  }
-}
-
-
-// Función para eliminar una película del carrito
-function eliminarPelicula(titulo) {
-  carrito = carrito.filter(pelicula => pelicula !== titulo)
-  verListaCompleta()
-}
-
-// Función para ver la lista completa de películas en el carrito
-function verListaCompleta() {
-  listaCarrito.innerHTML = ""
-
-  if (carrito.length === 0) {
-    listaCarrito.innerHTML = "El carrito está vacío."
-  } else {
-    carrito.forEach(titulo => {
-      const peliculaElement = document.createElement("div")
-      peliculaElement.innerHTML =
-        "<strong>Título:</strong> " + titulo + "<br>" +
-        "<button onclick='eliminarPelicula(\"" + titulo + "\")'>Eliminar del carrito</button>"
-      listaCarrito.appendChild(peliculaElement)
+      resultadosContainer.appendChild(peliculaElement)
     })
   }
 }
 
-// Función para vaciar completamente el carrito
+// Función para agregar una película al carrito
+function agregarAlCarrito(titulo, genero) {
+  const peliculaEnCarrito = carrito.find(p => p.titulo === titulo && p.genero === genero)
+
+  if (!peliculaEnCarrito) {
+    carrito.push({ titulo, genero })
+    mostrarNotificacion("Película agregada al carrito.")
+  } else {
+    mostrarNotificacion("Esta película ya está en el carrito.")
+  }
+
+  guardarCarritoEnStorage() // Guardar el carrito en el almacenamiento local
+  verListaCompleta() // Actualizar la visualización del carrito
+}
+
+// Función para eliminar una película del carrito
+function eliminarPelicula(titulo, genero) {
+  carrito = carrito.filter(pelicula => pelicula.titulo !== titulo || pelicula.genero !== genero)
+  mostrarNotificacion("Película eliminada del carrito.")
+
+  guardarCarritoEnStorage() // Guardar el carrito en el almacenamiento local
+  verListaCompleta() // Actualizar la visualización del carrito
+}
+
+// Función para ver la lista completa de películas en el carrito
+function verListaCompleta() {
+  const carritoLista = document.getElementById("carritoLista")
+  carritoLista.innerHTML = ""
+
+  if (carrito.length === 0) {
+    carritoLista.innerHTML = "El carrito está vacío."
+  } else {
+    const peliculaItems = carrito.map(pelicula => {
+      const peliculaItem = document.createElement("li")
+      peliculaItem.textContent = `${pelicula.titulo} - ${pelicula.genero}`
+      return peliculaItem
+    })
+
+    carritoLista.append(...peliculaItems)
+  }
+}
+
+// Función para guardar el carrito en el almacenamiento local usando JSON
+function guardarCarritoEnStorage() {
+  const carritoJSON = JSON.stringify(carrito)
+  localStorage.setItem("carrito", carritoJSON)
+}
+
+// Función para cargar el carrito desde el almacenamiento local usando JSON
+function cargarCarritoDesdeStorage() {
+  const carritoJSON = localStorage.getItem("carrito")
+  if (carritoJSON) {
+    carrito = JSON.parse(carritoJSON)
+    verListaCompleta() // Actualizar la visualización del carrito
+  }
+}
+
+// Función simulada para obtener los datos de películas desde el servidor (simulación de fetch)
+function obtenerPeliculasDesdeServidor() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(peliculas)
+    }, 1000) // La simulación de "espera del servidor" de 1 segundo
+  })
+}
+async function buscarPorTitulo() {
+  const tituloABuscar = document.getElementById("buscarTitulo").value.toLowerCase()
+
+  try {
+    const peliculasEncontradas = await obtenerPeliculasDesdeServidor()
+
+    const peliculasFiltradas = peliculasEncontradas.filter(
+      (pelicula) => pelicula.titulo.toLowerCase().includes(tituloABuscar)
+    )
+
+    mostrarResultados(peliculasFiltradas)
+  } catch (error) {
+    console.error("Error al obtener las películas:", error)
+  }
+}
+// Función para abrir el panel lateral del carrito
+function abrirPanelLateral() {
+  const panelLateral = document.getElementById("panelLateral")
+  panelLateral.style.right = "0"
+}
+
+// Función para cerrar el panel lateral del carrito
+function cerrarPanelLateral() {
+  const panelLateral = document.getElementById("panelLateral")
+  panelLateral.style.right = "-300px"
+}
+
+// Función para vaciar el carrito
 function vaciarCarrito() {
   carrito = []
   verListaCompleta()
-  mostrarNotificacion("El carrito ha sido vaciado.")
 }
 
-// Función para mostrar una notificación
+// Función para mostrar una notificación con Toastify
 function mostrarNotificacion(mensaje) {
-  const notificacion = document.createElement("div")
-  notificacion.className = "notificacion"
-  notificacion.textContent = mensaje
-
-  // Agregar la notificación al contenedor de notificaciones
-  contenedorNotificaciones.appendChild(notificacion)
-
-  // Eliminar la notificación después de 2 segundos
-  setTimeout(function () {
-    contenedorNotificaciones.removeChild(notificacion)
-  }, 2000)
+  Toastify({
+    text: mensaje,
+    duration: 2000,
+    close: true,
+    gravity: "bottom",
+    position: "right",
+    backgroundColor: "#222",
+    className: "mi-notificacion",
+  }).showToast()
 }
-// Función para enviar la lista de películas a un amigo
-// ...Resto del código...
 
 // Función para enviar la lista de películas a un amigo
 function enviarLista() {
   if (carrito.length === 0) {
-    mostrarNotificacion("El carrito está vacío, no se puede enviar la lista.");
-    return;
+    mostrarNotificacion("El carrito está vacío, no se puede enviar la lista.")
+    return
   }
 
-  const datosLista = JSON.stringify(carrito);
+  // Creamos una copia de la lista del carrito para agregarla al historial
+  const listaEnviada = [...carrito]
+  historialListas.push(listaEnviada)
 
-  // Simulamos el envío de la lista con una notificación de Toastify
-  Toastify({
-    text: `Lista enviada a tu amigo. Se incluyeron ${carrito.length} películas.`,
-    duration: 3000,
-    close: true,
-    gravity: "top",
-    position: "right",
-    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-  }).showToast();
+  mostrarNotificacion(`Lista enviada a tu amigo. Se incluyeron ${carrito.length} películas.`)
 
-  vaciarCarrito();
+  vaciarCarrito()
+  mostrarHistorialListas()
+  guardarCarritoEnStorage() // Guardar el carrito en el almacenamiento local
 }
+
+// Array para almacenar el historial de listas enviadas
+let historialListas = []
+
+// Función para mostrar el historial de listas enviadas
+function mostrarHistorialListas() {
+  const historialListaElement = document.getElementById("historialLista")
+  historialListaElement.innerHTML = ""
+
+  historialListas.forEach((lista, index) => {
+    const listaItem = document.createElement("li")
+    listaItem.textContent = `Lista ${index + 1}: ${lista.map(pelicula => `${pelicula.titulo} - ${pelicula.genero}`).join(", ")}`
+    historialListaElement.appendChild(listaItem)
+  })
+}
+
+// Función para mostrar el carrito actual
+function mostrarCarrito() {
+  abrirPanelLateral()
+  verListaCompleta()
+}
+
+// Al cargar la página, cargar el carrito desde el almacenamiento local y mostrar las listas enviadas
+window.addEventListener("load", () => {
+  cargarCarritoDesdeStorage()
+  mostrarHistorialListas()
+})

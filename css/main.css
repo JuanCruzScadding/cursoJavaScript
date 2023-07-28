@@ -102,129 +102,111 @@ main h1{
     box-shadow: none;
     transform: translateY(0);
    }
-   .input__container--variant {
-    background: linear-gradient(to bottom, #F3FFF9, #F3FFF9);
-    border-radius: 30px;
-    max-width: 13em;
-    padding: 1em 1em;
-  }
-  
-  .shadow__input--variant {
-    filter: blur(25px);
-    border-radius: 30px;
-    background-color: #F3FFF9;
-    opacity: 0.5;
-  }
-  
-  .input__button__shadow--variant {
-    border-radius: 15px;
-    background-color: #07372C;
-    padding: 10px;
-    border: none;
-  }
-  
-  .input__button__shadow--variant:hover {
-    background-color: #3C6659;
-  }
-  
-  .input__search--variant {
-    width: 10em;
-    align-items: center;
-    border-radius: 13em;
-    outline: none;
-    border: none;
-    padding: 0.8em;
-    font-size: 1.2em;
-    color: #002019;
-    background-color: transparent;
-  }
-  
-  .input__search--variant::placeholder {
-    color: #002019;
-    opacity: 0.7;
-  }
-  
-  .input__container--variant {
-    background: linear-gradient(to bottom, #F3FFF9, #F3FFF9);
-    border-radius: 1.5em;
-    display: flex;
-    justify-content: center;
-    max-width: 15em;
-    padding: 1em;
-    margin: 20px;
-    box-shadow: 0em 1em 3em #beecdc64;
-  }
-  .input__container--variant label{
-    color:#000;
-    font-weight: bolder;
-  }
+   input {
+    color: #8707ff;
+    border: 2px solid #8707ff;
+    border-radius: 10px;
+    padding: 10px 25px;
+    background: transparent;
+    max-width: 190px;
+    margin: auto;
+   }
+   
+   input:active {
+    box-shadow: 2px 2px 15px #8707ff inset;
+   }
+   
   #lista.oculto {
     display: none;
   }
   .oculto {
     display: none;
   }
-  .pelicula {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    max-width: 200px; /* Ajusta este valor según tus necesidades */
-  }
-  nav {
-    background-color: #111;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-  }
-  
-  nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav li {
-    display: inline-block;
-    margin-right: 15px;
-  }
-  
-  nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid #fff;
-    border-radius: 5px;
-  }
-  
-  nav a:hover {
-    background-color: #fff;
-    color: #333;
-  }
-  .resultados-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .pelicula {
-    /* Estilos de cada película... */
-    margin-bottom: 20px;
-  }
-  .pelicula img{
-    width: 100%;
-    height: 100%;
-  }
-  
-  #carrito {
-    /* Estilos del carrito... */
-    margin-top: 20px;
-  }
-    /* Estilos para el panel lateral */
+ /* Estilos para la barra de navegación */
+nav {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+}
+
+nav a:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Estilos para el buscador */
+.buscador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.buscador label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.buscador input[type="text"] {
+  width: 200px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+/* Estilos para los resultados de búsqueda */
+.resultados-container {
+  flex: 2;
+}
+
+.pelicula {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.pelicula img {
+  width: 150px;
+  height: 200px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.pelicula strong {
+  display: block;
+  font-weight: bold;
+}
+
+/* Estilos para el panel lateral */
 .panel-lateral {
   position: fixed;
   top: 0;
@@ -234,14 +216,130 @@ main h1{
   background-color: #f1f1f1;
   padding: 20px;
   transition: right 0.3s ease; /* Agregamos una transición suave al abrir y cerrar el panel */
+  z-index: 1; /* Asegurarse de que el panel se muestre por encima de otros elementos */
+    right: -300px; /* El panel estará oculto al principio */
 }
 
 /* Estilos para la lista de películas en el carrito */
 #carritoLista {
   list-style: none;
-  padding: 0;
+  padding: 0;   
 }
 
 #carritoLista li {
   margin-bottom: 10px;
+}
+
+/* Estilos para la notificación con Toastify */
+.mi-notificacion {
+  color: #000;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+#panelLateral button {
+  margin: 5px 0;
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#panelLateral button:hover {
+  background-color: #0056b3;
+}
+/* Estilos para el contenedor de los resultados */
+.resultados-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Estilos para cada película en los resultados */
+.pelicula {
+  width: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+/* Estilos para el botón de agregar al carrito */
+.pelicula button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilos para el panel lateral del carrito */
+.panel-lateral {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: #f9f9f9;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  transition: right 0.3s ease-in-out;
+  z-index: 999;
+}
+
+/* Estilos para el botón de cerrar el panel lateral */
+.cerrar-panel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ccc;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Estilos para el título del carrito */
+.panel-lateral h2 {
+  text-align: center;
+}
+
+/* Estilos para la lista del carrito */
+.carrito-lista {
+  list-style: none;
+  padding: 0;
+}
+
+/* Estilos para cada elemento del carrito */
+.carrito-lista li {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* Estilos para los botones en el panel lateral */
+.panel-lateral button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilos para el botón de enviar lista */
+.enviar-lista {
+  background-color: #28a745;
+}
+
+/* Estilos para el botón de vaciar carrito */
+.vaciar-carrito {
+  background-color: #dc3545;
 }

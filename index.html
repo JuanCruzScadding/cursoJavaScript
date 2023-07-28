@@ -9,36 +9,45 @@
   <title>buscador de peliculas</title>
 </head>
 <body>
-  <!--nav-->
+  <!-- Barra de navegación -->
   <nav>
     <ul>
       <li><a href="#">Inicio</a></li>
       <li><a href="#">Buscar Películas</a></li>
-      <li><button onclick="verListaCompleta()">Ver lista completa</button></li>
+      <li><button onclick="abrirPanelLateral()">Ver Carrito</button></li> <!-- Cambiamos el enlace por un botón -->
     </ul>
   </nav>
-  
-<!-- Input de búsqueda -->
-<label for="inputTitulo">Título:</label>
-<input type="text" id="inputTitulo">
 
-<label for="inputGenero">Género:</label>
-<input type="text" id="inputGenero">
+  <!-- Contenedor principal -->
+  <div class="container">
+    <!-- Buscador -->
+    <div class="buscador">
+      <label for="buscarTitulo">Buscar por Título:</label>
+      <input type="text" id="buscarTitulo">
+      <button onclick="buscarPorTitulo()">Buscar</button>
 
-<button onclick="buscarPeliculas()">Buscar</button>
+      <!-- Otras opciones de búsqueda (género y año de estreno) -->
+      <!-- ...agrega aquí tus elementos de búsqueda por género y año... -->
 
-<!-- Resultados de búsqueda -->
-<div id="resultados"></div>
+      <!-- Resultados de búsqueda -->
+      <div id="resultados" class="resultados-container"></div>
+    </div>
 
-<!-- Carrito -->
-<div id="carrito">
-  <h2>Carrito</h2>
-  <button onclick="vaciarCarrito()">Vaciar carrito</button>
-  <button onclick="enviarLista()">Enviar lista a un amigo</button>
-  <div id="listaCarrito"></div>
-</div>
-<!-- Contenedor de notificaciones -->
-<div id="contenedorNotificaciones"></div>
+    <!-- Panel lateral con la lista de películas en el carrito -->
+    <div id="panelLateral" class="panel-lateral">
+      <h2>Carrito de Películas</h2>
+      <ul id="carritoLista"></ul>
+      <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+      <!-- Movemos el botón "Enviar Lista a un Amigo" aquí dentro del panel lateral -->
+      <button onclick="enviarLista()">Enviar Lista a un Amigo</button>
+      <button onclick="cerrarPanelLateral()">Cerrar</button>
+    
+      <!-- Historial de listas enviadas -->
+      <div class="historial-listas">
+        <h3>Historial de Listas Enviadas</h3>
+        <ul id="historialLista"></ul>
+      </div>
+    </div>
 <footer></footer>
 <script src="proyecto/preEntrega3.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script></body>
