@@ -23,9 +23,6 @@ const peliculas = [
 ]
 // Array para almacenar las películas agregadas al carrito
 let carrito = []
-
-
-
 // Función para mostrar los resultados de la búsqueda
 function mostrarResultados(peliculas) {
   const resultadosContainer = document.getElementById("resultados")
@@ -193,7 +190,6 @@ function enviarLista() {
 
   mostrarNotificacion(`Lista enviada a tu amigo. Se incluyeron ${carrito.length} películas.`)
   
-  carrito = []
   verListaCompleta()
   mostrarHistorialListas()
   guardarCarritoEnStorage() // Guardar el carrito en el almacenamiento local
@@ -221,7 +217,16 @@ function mostrarCarrito() {
 }
 
 // Al cargar la página, cargar el carrito desde el almacenamiento local y mostrar las listas enviadas
-window.addEventListener("load", () => {
-  cargarCarritoDesdeStorage()
-  mostrarHistorialListas()
-})
+
+window.addEventListener("load", async () => {
+  centrarInput();
+
+  // Esperar a que se resuelva la promesa antes de cargar el carrito
+  try {
+    await obtenerPeliculasDesdeServidor();
+    cargarCarritoDesdeStorage();
+    mostrarHistorialListas();
+  } catch (error) {
+    console.error("Error al obtener las películas:", error);
+  }
+});
