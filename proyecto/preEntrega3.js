@@ -66,9 +66,8 @@ function agregarAlCarrito(titulo, genero) {
 function eliminarPelicula(titulo, genero) {
   carrito = carrito.filter(pelicula => pelicula.titulo !== titulo || pelicula.genero !== genero)
   mostrarNotificacion("Película eliminada del carrito.")
-
   guardarCarritoEnStorage() // Guardar el carrito en el almacenamiento local
-  verListaCompleta() // Actualizar la visualización del carrito
+  verListaCompleta() // Actualizar la visualización del carrito después de eliminar la película
 }
 
 // Función para ver la lista completa de películas en el carrito
@@ -79,13 +78,18 @@ function verListaCompleta() {
   if (carrito.length === 0) {
     carritoLista.innerHTML = "El carrito está vacío."
   } else {
-    const peliculaItems = carrito.map(pelicula => {
+    carrito.forEach(pelicula => {
       const peliculaItem = document.createElement("li")
       peliculaItem.textContent = `${pelicula.titulo} - ${pelicula.genero}`
-      return peliculaItem
-    })
 
-    carritoLista.append(...peliculaItems)
+      // Agregar el botón de eliminación junto a cada película en el carrito
+      const botonEliminar = document.createElement("button")
+      botonEliminar.textContent = "Eliminar"
+      botonEliminar.onclick = () => eliminarPelicula(pelicula.titulo, pelicula.genero)
+
+      peliculaItem.appendChild(botonEliminar)
+      carritoLista.appendChild(peliculaItem)
+    })
   }
 }
 
@@ -187,7 +191,7 @@ function enviarLista() {
   // Creamos una copia de la lista del carrito para agregarla al historial
   const listaEnviada = [...carrito]
   historialListas.push(listaEnviada)
-
+  carrito = []
   mostrarNotificacion(`Lista enviada a tu amigo. Se incluyeron ${carrito.length} películas.`)
   
   verListaCompleta()
