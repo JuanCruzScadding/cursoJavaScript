@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
-  <title>buscador de peliculas</title>
+  <title>BUSCADOR DE PELICULAS</title>
 </head>
 <body>
   <!-- Barra de navegación -->
   <nav>
     <ul>
-      <li><a href="#">Inicio</a></li>
-      <li><a href="#">Buscar Películas</a></li>
+      <img src="img/logo.png" alt="logo">
       <li><button onclick="abrirPanelLateral()">Ver Carrito</button></li> <!-- Cambiamos el enlace por un botón -->
     </ul>
   </nav>
@@ -24,10 +24,9 @@
     <div class="buscador">
       <label for="buscarTitulo">Buscar por Título:</label>
       <input type="text" id="buscarTitulo">
-      <button onclick="buscarPorTitulo()">Buscar</button>
-
-      <!-- Otras opciones de búsqueda (género y año de estreno) -->
-      <!-- ...agrega aquí tus elementos de búsqueda por género y año... -->
+      <button onclick="buscarPorTitulo()" class="buscar">
+        <span class="span">🔎</span>
+      </button>
 
       <!-- Resultados de búsqueda -->
       <div id="resultados" class="resultados-container"></div>
@@ -37,10 +36,14 @@
     <div id="panelLateral" class="panel-lateral">
       <h2>Carrito de Películas</h2>
       <ul id="carritoLista"></ul>
-      <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+      <button onclick="vaciarCarrito()" class="botones">Vaciar Carrito</button>
       <!-- Movemos el botón "Enviar Lista a un Amigo" aquí dentro del panel lateral -->
-      <button onclick="enviarLista()">Enviar Lista a un Amigo</button>
-      <button onclick="cerrarPanelLateral()">Cerrar</button>
+      <button onclick="enviarLista()" class="boton-verde">Enviar Lista a un Amigo</button>
+      <button onclick="cerrarPanelLateral()" class="button">
+        <span class="X"></span>
+        <span class="Y"></span>
+        <div class="close">Close</div>
+      </button>
     
       <!-- Historial de listas enviadas -->
       <div class="historial-listas">

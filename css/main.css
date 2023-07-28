@@ -16,7 +16,7 @@ main{
     justify-content: center;
     flex-flow: column wrap;
     text-align: center;
-    list-style: none;
+    list-style-type: "🍿";
 }
 main h1{
     text-align: center;
@@ -128,16 +128,25 @@ nav {
   color: #fff;
   text-align: center;
   padding: 10px;
+  height: 100px;
+  width: 100vw;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
-
+nav img{
+  height: 100px;
+}
 nav ul {
   list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 0;
 }
 
 nav li {
-  display: inline-block;
   margin-right: 15px;
 }
 
@@ -157,33 +166,28 @@ nav a:hover {
 /* Estilos para el contenedor principal */
 .container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+/* Estilos para el input de búsqueda */
+.buscar-input {
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Estilos para el contenedor de los resultados */
+.resultados-container {
+  display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   gap: 20px;
   padding: 20px;
-}
-
-/* Estilos para el buscador */
-.buscador {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.buscador label {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.buscador input[type="text"] {
-  width: 200px;
-  padding: 5px;
-  font-size: 16px;
-}
-
-/* Estilos para los resultados de búsqueda */
-.resultados-container {
-  flex: 2;
+  margin-top: 20px;
 }
 
 .pelicula {
@@ -222,7 +226,7 @@ nav a:hover {
 
 /* Estilos para la lista de películas en el carrito */
 #carritoLista {
-  list-style: none;
+  list-style-type: "🍿";
   padding: 0;   
 }
 
@@ -237,20 +241,7 @@ nav a:hover {
   padding: 10px;
   border-radius: 5px;
 }
-#panelLateral button {
-  margin: 5px 0;
-  padding: 8px 12px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
-#panelLateral button:hover {
-  background-color: #0056b3;
-}
 /* Estilos para el contenedor de los resultados */
 .resultados-container {
   display: flex;
@@ -273,7 +264,7 @@ nav a:hover {
 .pelicula button {
   margin-top: 10px;
   padding: 5px 10px;
-  background-color: #007bff;
+  background-color:#8707ff;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -312,7 +303,7 @@ nav a:hover {
 
 /* Estilos para la lista del carrito */
 .carrito-lista {
-  list-style: none;
+  list-style-type: "🍿";
   padding: 0;
 }
 
@@ -323,17 +314,22 @@ nav a:hover {
 }
 
 /* Estilos para los botones en el panel lateral */
-.panel-lateral button {
+.panel-lateral .botones, .boton-verde {
   display: block;
   width: 100%;
   margin: 10px 0;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #222;
   color: #fff;
   border: none;
   cursor: pointer;
 }
-
+.panel-lateral .botones:hover{
+  background-color: rgb(210, 0, 0);
+}
+.panel-lateral .boton-verde:hover{
+  background-color: rgb(44, 176, 0);
+}
 /* Estilos para el botón de enviar lista */
 .enviar-lista {
   background-color: #28a745;
@@ -342,4 +338,170 @@ nav a:hover {
 /* Estilos para el botón de vaciar carrito */
 .vaciar-carrito {
   background-color: #dc3545;
+}
+.button {
+  position: relative;
+  width: 6em;
+  height: 4em;
+  border: none;
+  background-color: #222;
+}
+
+.X {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 33%;
+  width: 2em;
+  height: 1.5px;
+  background-color: #fff;
+  transform: rotate(45deg);
+}
+
+.Y {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 33%;
+  width: 2em;
+  height: 1.5px;
+  background-color: #fff;
+  transform: rotate(-45deg);
+}
+
+.close {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: -40%;
+  left: 70%;
+  width: 3em;
+  height: 1.7em;
+  font-size: 16px;
+  background-color: rgb(254, 255, 225);
+  color: #000;
+  border: 1px solid #000;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.button:hover {
+  background-color: rgb(210, 0, 0);
+}
+
+.button:active {
+  background-color: rgb(130, 0, 0);
+}
+
+.button:hover > .close {
+  animation: close 0.2s forwards 1.25s;
+}
+
+@keyframes close {
+  100% {
+    opacity: 1;
+  }
+}
+.buscar {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #8707ff;
+  background-color: #212121;
+  width: 70px;
+  height: 70px;
+  font-size: 24px;
+  text-transform: uppercase;
+  border: 2px solid #212121;
+  border-radius: 50%;
+  -webkit-transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  -webkit-box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.15),
+    2px 2px 2px rgba(0, 0, 0, 0.1),
+    -3px -3px 2px rgba(255, 255, 255, 0.05),
+    -2px -2px 1px rgba(255, 255, 255, 0.05);
+          box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.15),
+    2px 2px 2px rgba(0, 0, 0, 0.1),
+    -3px -3px 2px rgba(255, 255, 255, 0.05),
+    -2px -2px 1px rgba(255, 255, 255, 0.05);
+
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.buscar .span{
+  position: relative;
+  z-index: 2;
+  -webkit-transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.buscar::before {
+  content: "";
+  position: absolute;
+  background-color: #8707ff;
+  width: 150%;
+  height: 150%;
+  left: 0%;
+  bottom: 0%;
+  -webkit-transform: translate(-100%, 100%) rotate(45deg);
+      -ms-transform: translate(-100%, 100%) rotate(45deg);
+          transform: translate(-100%, 100%) rotate(45deg);
+  border-radius: 15px;
+}
+
+.buscar:hover::before {
+  -webkit-animation: shakeBack 0.6s forwards 0.6s;
+          animation: shakeBack 0.6s forwards 0.6s;
+}
+
+.buscar:hover .span{
+  scale: 1.2;
+}
+
+.buscar:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.buscar:active{
+  scale: 0.95;
+}
+
+@-webkit-keyframes shakeBack {
+  0% {
+    -webkit-transform: translate(-100%, 100%) rotate(45deg);
+            transform: translate(-100%, 100%) rotate(45deg);
+  }
+  50% {
+    -webkit-transform: translate(15%, -15%) rotate(45deg);
+            transform: translate(15%, -15%) rotate(45deg);
+  }
+  100% {
+    -webkit-transform: translate(-10%, 10%) rotate(45deg);
+            transform: translate(-10%, 10%) rotate(45deg);
+  }
+}
+
+@keyframes shakeBack {
+  0% {
+    -webkit-transform: translate(-100%, 100%) rotate(45deg);
+            transform: translate(-100%, 100%) rotate(45deg);
+  }
+  50% {
+    -webkit-transform: translate(15%, -15%) rotate(45deg);
+            transform: translate(15%, -15%) rotate(45deg);
+  }
+  100% {
+    -webkit-transform: translate(-10%, 10%) rotate(45deg);
+            transform: translate(-10%, 10%) rotate(45deg);
+  }
 }

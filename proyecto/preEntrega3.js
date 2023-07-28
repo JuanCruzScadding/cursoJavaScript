@@ -144,10 +144,29 @@ function cerrarPanelLateral() {
 
 // Función para vaciar el carrito
 function vaciarCarrito() {
-  carrito = []
-  verListaCompleta()
-}
+  if (carrito.length === 0) {
+    mostrarNotificacion("El carrito está vacío.")
+    return
+  }
 
+  // Mostrar SweetAlert para confirmar si se quiere vaciar el carrito
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Esta acción eliminará todas las películas del carrito.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, vaciar carrito',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Vaciar el carrito y mostrar notificación
+      carrito = []
+      verListaCompleta()
+      mostrarNotificacion("Carrito vaciado correctamente.")
+      guardarCarritoEnStorage() // Guardar el carrito en el almacenamiento local
+    }
+  })
+}
 // Función para mostrar una notificación con Toastify
 function mostrarNotificacion(mensaje) {
   Toastify({
@@ -173,8 +192,9 @@ function enviarLista() {
   historialListas.push(listaEnviada)
 
   mostrarNotificacion(`Lista enviada a tu amigo. Se incluyeron ${carrito.length} películas.`)
-
-  vaciarCarrito()
+  
+  carrito = []
+  verListaCompleta()
   mostrarHistorialListas()
   guardarCarritoEnStorage() // Guardar el carrito en el almacenamiento local
 }
